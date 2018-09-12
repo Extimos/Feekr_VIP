@@ -3,6 +3,8 @@ package com.jiang.tvlauncher.utils;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Environment;
 import android.view.KeyEvent;
 import android.widget.Toast;
@@ -79,6 +81,15 @@ public class DownUtil {
                                 pd.dismiss();
 
                             if (fileName.contains(".apk")) {
+
+                                //安装程序
+                                Intent intent = new Intent(Intent.ACTION_VIEW);
+                                intent.addCategory(Intent.CATEGORY_DEFAULT);
+                                intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
+                                //startActivity(intent);
+
+                                activity.startActivity(intent);
+
                                 //静默安装
 //                                ShellUtils.installSilent(file.getPath());
                             } else if (fileName.contains(".zip")) {

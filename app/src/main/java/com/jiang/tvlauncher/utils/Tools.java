@@ -320,33 +320,37 @@ public final class Tools {
      * @param packagename
      * @return
      */
-    public static boolean isAppInstalled(String packagename) {
-        PackageInfo packageInfo;
-        try {
-            packageInfo = MyApp.context.getPackageManager().getPackageInfo(packagename, 0);
-        } catch (Exception e) {
-            packageInfo = null;
-            e.printStackTrace();
-        }
-        if (packageInfo == null) {
-            //System.out.println("没有安装");
-            return false;
-        } else {
-            //System.out.println("已经安装");
-            return true;
-        }
-    }
+//    public static boolean isAppInstalled(String packagename) {
+//        PackageInfo packageInfo;
+//        try {
+//            packageInfo = MyApp.context.getPackageManager().getPackageInfo(packagename, 0);
+//        } catch (Exception e) {
+//            packageInfo = null;
+//            e.printStackTrace();
+//        }
+//        if (packageInfo == null) {
+//            //System.out.println("没有安装");
+//            return false;
+//        } else {
+//            //System.out.println("已经安装");
+//            return true;
+//        }
+//    }
 
-    public static boolean isAppInstalled(Context context,String packagename) {
-        PackageManager pm = context.getPackageManager();
-        List<PackageInfo> packages = pm.getInstalledPackages(0);
-        for (PackageInfo packageInfo : packages) {
-            if (packageInfo.packageName.equals(packagename)){
-                return true;
+
+    public static boolean isAppInstalled(String packageName) {
+        final PackageManager packageManager = MyApp.context.getPackageManager();
+        List<PackageInfo> pinfo = packageManager.getInstalledPackages(0);
+        List<String> pName = new ArrayList<>();
+        if (pinfo != null) {
+            for (int i = 0; i < pinfo.size(); i++) {
+                String pn = pinfo.get(i).packageName;
+                pName.add(pn);
             }
         }
-        return false;
+        return pName.contains(packageName);
     }
+
 
 
     /**

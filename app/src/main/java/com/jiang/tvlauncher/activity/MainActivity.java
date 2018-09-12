@@ -9,6 +9,8 @@ import com.jiang.tvlauncher.entity.Const;
 import com.jiang.tvlauncher.entity.Save_Key;
 import com.jiang.tvlauncher.entity.VIP_Entity;
 import com.jiang.tvlauncher.servlet.GetVIP_Servlet;
+import com.jiang.tvlauncher.servlet.Update_Servlet;
+import com.jiang.tvlauncher.utils.DownUtil;
 import com.jiang.tvlauncher.utils.LogUtil;
 import com.jiang.tvlauncher.utils.SaveUtils;
 import com.jiang.tvlauncher.utils.Tools;
@@ -24,9 +26,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //获取账号
-        new GetVIP_Servlet(this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        //检测更新
+        new Update_Servlet(this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
+
+    }
+
+    public void CallBack_Update() {
+//获取账号
+        new GetVIP_Servlet(this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     /**
@@ -51,13 +59,17 @@ public class MainActivity extends AppCompatActivity {
         //启动应用
         LogUtil.e(TAG, "启动会员版");
 
-
         //检查是否有此应用
-        if (Tools.isAppInstalled(Const.TvVideo)){
+        if (Tools.isAppInstalled(Const.TvViedo)) {
             //启动应用
-        }else {
+            Tools.StartApp(this, Const.TvViedo);
+        } else {
             //安装应用
+            String dowurl = bean.getDownloadUrl();
+            new DownUtil(this).downLoad(dowurl, dowurl.substring(dowurl.indexOf("tv_video")), true);
 
         }
     }
+
+
 }

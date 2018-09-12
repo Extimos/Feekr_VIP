@@ -9,12 +9,14 @@ package com.jiang.tvlauncher.entity;
  */
 public class Const {
 
-    public static  String URL ;
+//    public static String URL = "http://api.feekrs.com/";
+        public static String URL = " http://testapi.feekrs.com/";
+
     public static String ktcp_vuid;
     public static String ktcp_vtoken;
     public static String devType;
     public static boolean IsGetVip;
-    public static String TvVideo;
+    public static String TvViedo = "com.ktcp.tvvideo";//定制版腾讯视频
     public static String TencentViedo;
     public static String 云视听Url;
 }

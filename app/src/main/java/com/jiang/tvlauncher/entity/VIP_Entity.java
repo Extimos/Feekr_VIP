@@ -9,9 +9,10 @@ package com.jiang.tvlauncher.entity;
  */
 public class VIP_Entity extends BaseEntity {
 
+
     /**
      * errorcode : 1000
-     * result : {"accessToken":"T5JUTtpz+cz8s0iWV2ULaDnqP/j7OUs1pXZ7rKPdGvH7sh63t2HbUM2ZhjwW1cCL9IWoBRcCU9ugli7GF+Qcg/QfY/iYJii8","vtoken":"0B40654679E60821B42A9D028B56AAA1","vuid":"278113277"}
+     * result : {"accessToken":"I1q/pN9yWdSddWo11zIsaV+4KPXTMijb1wxVBPrdhTwrZ+iPYmKcyCFXB2crPYlGlN3JrCXwIfLof0mGckJozB7UNrlzRKX5","downloadUrl":"http://oyn17egk9.bkt.clouddn.com/tv_video_3.3.0.2073_android_13097.apk","downloadUrlBak":"http://owod107fe.bkt.clouddn.com/tv_video_3.0.0.1050_android_15000.apk","packageName":"com.ktcp.tvvideo","packageNameBak":"com.ktcp.video","vtoken":"3955D9BEB4AA836B8EA6A46EDFE57ED5","vuid":"278727885"}
      */
 
     private ResultBean result;
@@ -24,16 +25,24 @@ public class VIP_Entity extends BaseEntity {
         this.result = result;
     }
 
-    public class ResultBean {
+    public static class ResultBean {
         /**
-         * accessToken : T5JUTtpz+cz8s0iWV2ULaDnqP/j7OUs1pXZ7rKPdGvH7sh63t2HbUM2ZhjwW1cCL9IWoBRcCU9ugli7GF+Qcg/QfY/iYJii8
-         * vtoken : 0B40654679E60821B42A9D028B56AAA1
-         * vuid : 278113277
+         * accessToken : I1q/pN9yWdSddWo11zIsaV+4KPXTMijb1wxVBPrdhTwrZ+iPYmKcyCFXB2crPYlGlN3JrCXwIfLof0mGckJozB7UNrlzRKX5
+         * downloadUrl : http://oyn17egk9.bkt.clouddn.com/tv_video_3.3.0.2073_android_13097.apk
+         * downloadUrlBak : http://owod107fe.bkt.clouddn.com/tv_video_3.0.0.1050_android_15000.apk
+         * packageName : com.ktcp.tvvideo
+         * packageNameBak : com.ktcp.video
+         * vtoken : 3955D9BEB4AA836B8EA6A46EDFE57ED5
+         * vuid : 278727885
          */
 
         private String accessToken;
+        private String downloadUrl;
+        private String downloadUrlBak;
+        private String packageName;
+        private String packageNameBak;
         private String vtoken;
-        private long vuid;
+        private String vuid;
 
         public String getAccessToken() {
             return accessToken;
@@ -41,6 +50,38 @@ public class VIP_Entity extends BaseEntity {
 
         public void setAccessToken(String accessToken) {
             this.accessToken = accessToken;
+        }
+
+        public String getDownloadUrl() {
+            return downloadUrl;
+        }
+
+        public void setDownloadUrl(String downloadUrl) {
+            this.downloadUrl = downloadUrl;
+        }
+
+        public String getDownloadUrlBak() {
+            return downloadUrlBak;
+        }
+
+        public void setDownloadUrlBak(String downloadUrlBak) {
+            this.downloadUrlBak = downloadUrlBak;
+        }
+
+        public String getPackageName() {
+            return packageName;
+        }
+
+        public void setPackageName(String packageName) {
+            this.packageName = packageName;
+        }
+
+        public String getPackageNameBak() {
+            return packageNameBak;
+        }
+
+        public void setPackageNameBak(String packageNameBak) {
+            this.packageNameBak = packageNameBak;
         }
 
         public String getVtoken() {
@@ -51,14 +92,12 @@ public class VIP_Entity extends BaseEntity {
             this.vtoken = vtoken;
         }
 
-        public long getVuid() {
+        public String getVuid() {
             return vuid;
         }
 
-        public void setVuid(long vuid) {
+        public void setVuid(String vuid) {
             this.vuid = vuid;
         }
     }
-
-
 }

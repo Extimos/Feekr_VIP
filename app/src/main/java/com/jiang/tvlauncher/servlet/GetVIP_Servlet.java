@@ -5,17 +5,14 @@ import android.os.AsyncTask;
 import android.text.TextUtils;
 
 import com.google.gson.Gson;
-import com.jiang.tvlauncher.MyApp;
 import com.jiang.tvlauncher.activity.MainActivity;
 import com.jiang.tvlauncher.dialog.Loading;
+import com.jiang.tvlauncher.dialog.WarnDialog;
 import com.jiang.tvlauncher.entity.Const;
-import com.jiang.tvlauncher.entity.Save_Key;
 import com.jiang.tvlauncher.entity.VIP_Entity;
 import com.jiang.tvlauncher.utils.HttpUtil;
 import com.jiang.tvlauncher.utils.LogUtil;
-import com.jiang.tvlauncher.utils.SaveUtils;
-import com.jiang.tvlauncher.utils.Tools;
-import com.ktcp.video.thirdagent.JsonUtils;
+import com.jiang.tvlauncher.utils.ToolUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -40,11 +37,10 @@ public class GetVIP_Servlet extends AsyncTask<String, Integer, VIP_Entity> {
     protected VIP_Entity doInBackground(String... strings) {
         Map map = new HashMap();
 
-        map.put("devType", Const.devType);
-        map.put("serialNum", MyApp.getSerialNum());
-        map.put("mac", Tools.getMacAddress());
+        map.put("terminalId", ToolUtils.getMyUUID_mini()); //终端设备ID
+        map.put("mac", ToolUtils.getMacAddress());       //设备mac地址
 
-        String res = HttpUtil.doPost(Const.URL + "tencent/tencentVideoController/getVuidInfo.do", map);
+        String res = HttpUtil.doPost(Const.URL + "tencent/tencentVideoController/getVuidInfoByAgent.do", map);
 
         VIP_Entity entity;
         //空判断
@@ -76,12 +72,14 @@ public class GetVIP_Servlet extends AsyncTask<String, Integer, VIP_Entity> {
 
         switch (entity.getErrorcode()) {
             case 1000:
-                if (activity instanceof MainActivity){
+                if (activity instanceof MainActivity) {
                     ((MainActivity) activity).CallBack_Vip(entity.getResult());
                 }
                 break;
             default:
+                new WarnDialog(activity).setMessage(entity.getErrormsg());
                 break;
+
         }
 
 
