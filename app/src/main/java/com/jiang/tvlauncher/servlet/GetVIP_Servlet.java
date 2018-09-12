@@ -7,7 +7,6 @@ import android.text.TextUtils;
 import com.google.gson.Gson;
 import com.jiang.tvlauncher.activity.MainActivity;
 import com.jiang.tvlauncher.dialog.Loading;
-import com.jiang.tvlauncher.dialog.WarnDialog;
 import com.jiang.tvlauncher.entity.Const;
 import com.jiang.tvlauncher.entity.VIP_Entity;
 import com.jiang.tvlauncher.utils.HttpUtil;
@@ -77,11 +76,12 @@ public class GetVIP_Servlet extends AsyncTask<String, Integer, VIP_Entity> {
                 }
                 break;
             default:
-                new WarnDialog(activity).setMessage(entity.getErrormsg());
+                if (activity instanceof MainActivity) {
+                    ((MainActivity) activity).CallBack_Error(entity.getErrormsg());
+                }
                 break;
 
         }
-
 
     }
 }

@@ -69,10 +69,15 @@ public class Update_Servlet extends AsyncTask<String, Integer, Update_Entity> {
             case 1000:
                 if (entity.getResult().getBuildNum() > Tools.getVersionCode(MyApp.context)) {
                     new DownUtil(activity).downLoad(entity.getResult().getDownloadUrl(), "Feekr" + entity.getResult().getVersionNum() + ".apk", true);
-                }else {
-                    if (activity instanceof MainActivity){
+                } else {
+                    if (activity instanceof MainActivity) {
                         ((MainActivity) activity).CallBack_Update();
                     }
+                }
+                break;
+            default:
+                if (activity instanceof MainActivity) {
+                    ((MainActivity) activity).CallBack_Update();
                 }
                 break;
         }

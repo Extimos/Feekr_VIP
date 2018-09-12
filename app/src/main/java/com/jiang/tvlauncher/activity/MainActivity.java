@@ -3,6 +3,7 @@ package com.jiang.tvlauncher.activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.TextView;
 
 import com.jiang.tvlauncher.R;
 import com.jiang.tvlauncher.entity.Const;
@@ -13,6 +14,7 @@ import com.jiang.tvlauncher.servlet.Update_Servlet;
 import com.jiang.tvlauncher.utils.DownUtil;
 import com.jiang.tvlauncher.utils.LogUtil;
 import com.jiang.tvlauncher.utils.SaveUtils;
+import com.jiang.tvlauncher.utils.ToolUtils;
 import com.jiang.tvlauncher.utils.Tools;
 import com.ktcp.video.thirdagent.JsonUtils;
 
@@ -21,19 +23,25 @@ import java.util.HashMap;
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
 
+    TextView textView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        textView = findViewById(R.id.home_message);
         //检测更新
         new Update_Servlet(this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+    }
 
-
+    public void CallBack_Error(String err) {
+      err+= "\n设备ID：" + ToolUtils.getMyUUID_mini() ;
+        textView.setText( err);
     }
 
     public void CallBack_Update() {
-//获取账号
+        //获取账号
         new GetVIP_Servlet(this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
@@ -70,6 +78,4 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }
-
-
 }
