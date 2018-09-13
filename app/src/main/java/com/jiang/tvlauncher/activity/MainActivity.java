@@ -23,7 +23,8 @@ import java.util.HashMap;
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
 
-    TextView textView;
+    TextView textView,ID;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,12 +32,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         textView = findViewById(R.id.home_message);
+        ID = findViewById(R.id.home_id);
+
+        ID.setText(ToolUtils.getMyUUID_mini());
         //检测更新
         new Update_Servlet(this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     public void CallBack_Error(String err) {
-      err+= "\n设备ID：" + ToolUtils.getMyUUID_mini() ;
+//      err+= "\n设备ID：" + ToolUtils.getMyUUID_mini() ;
         textView.setText( err);
     }
 

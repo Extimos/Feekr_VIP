@@ -1,7 +1,10 @@
 package com.jiang.tvlauncher.servlet;
 
 import android.app.Activity;
+
+import android.content.DialogInterface;
 import android.os.AsyncTask;
+import android.support.v7.app.AlertDialog;
 
 import com.google.gson.Gson;
 import com.jiang.tvlauncher.MyApp;
@@ -68,7 +71,27 @@ public class Update_Servlet extends AsyncTask<String, Integer, Update_Entity> {
         switch (entity.getErrorcode()) {
             case 1000:
                 if (entity.getResult().getBuildNum() > Tools.getVersionCode(MyApp.context)) {
-                    new DownUtil(activity).downLoad(entity.getResult().getDownloadUrl(), "Feekr" + entity.getResult().getVersionNum() + ".apk", true);
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+                    builder.setTitle("发现新版本");
+                    builder.setMessage("点击确认后将自动下载，下载完成后请按提示选择“安装”，安装完成后即可使用，");
+                    builder.setNegativeButton("确认", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            new DownUtil(activity).downLoad(entity.getResult().getDownloadUrl(), "Feekr" + entity.getResult().getVersionNum() + ".apk", true);
+                        }
+                    });
+                    builder.setPositiveButton("取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+//                            System.exit(0);
+
+                            if (activity instanceof MainActivity) {
+                                ((MainActivity) activity).CallBack_Update();
+                            }
+                        }
+                    }).show();
+
                 } else {
                     if (activity instanceof MainActivity) {
                         ((MainActivity) activity).CallBack_Update();
