@@ -66,6 +66,7 @@ public class ThirdPartyReceiver extends BroadcastReceiver implements IThirdParty
                 LogUtil.e(TAG,"状态码："+eveintId);
                 //Toast.makeText(context, "状态码："+eveintId, Toast.LENGTH_SHORT).show();
                 VIPCallBack_Servlet.TencentVip vip = new VIPCallBack_Servlet.TencentVip();
+
                 switch (eveintId) {
                     case 2:         //账户登录回调
                         vip.setCode(String.valueOf(code));
@@ -109,8 +110,9 @@ public class ThirdPartyReceiver extends BroadcastReceiver implements IThirdParty
 
         try {
             thirdPartyAuthCallback.authInfo(0, "get vuid error", SaveUtils.getString(Save_Key.PARAMS)); //data需要返回vuid,vtoken,accesssToken
-        } catch (RemoteException e) {
+        } catch (Exception e) {
             e.printStackTrace();
+            LogUtil.e(TAG,e.getMessage());
         }
 
 
@@ -127,8 +129,9 @@ public class ThirdPartyReceiver extends BroadcastReceiver implements IThirdParty
         String msg = "success";
         try {
             thirdPartyAuthCallback.orderResult(status, msg, params.toString());
-        } catch (RemoteException e) {
+        } catch (Exception e) {
             e.printStackTrace();
+            LogUtil.e(TAG,e.getMessage());
         }
     }
 

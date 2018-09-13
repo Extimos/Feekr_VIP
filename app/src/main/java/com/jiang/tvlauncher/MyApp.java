@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 
+import com.tencent.bugly.crashreport.CrashReport;
+
 /**
  * @author: jiangadmin
  * @date: 2018/9/5
@@ -28,5 +30,8 @@ public class MyApp extends Application {
     public void onCreate() {
         super.onCreate();
         context = this;
+
+        CrashReport.initCrashReport(getApplicationContext(), "78ed5dbc8b", false);
+
     }
 }

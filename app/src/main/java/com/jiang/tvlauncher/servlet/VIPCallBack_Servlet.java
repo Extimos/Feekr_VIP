@@ -4,7 +4,6 @@ import android.os.AsyncTask;
 import android.text.TextUtils;
 
 import com.google.gson.Gson;
-import com.jiang.tvlauncher.MyApp;
 import com.jiang.tvlauncher.entity.BaseEntity;
 import com.jiang.tvlauncher.entity.Const;
 import com.jiang.tvlauncher.utils.HttpUtil;
@@ -24,6 +23,8 @@ import java.util.Map;
 public class VIPCallBack_Servlet extends AsyncTask<VIPCallBack_Servlet.TencentVip, Integer, BaseEntity> {
     private static final String TAG = "VIPCallBack_Servlet";
 
+    String eveintId = "";
+
     @Override
     protected BaseEntity doInBackground(TencentVip... tencentVips) {
 
@@ -35,6 +36,8 @@ public class VIPCallBack_Servlet extends AsyncTask<VIPCallBack_Servlet.TencentVi
         map.put("terminalId", ToolUtils.getMyUUID_mini());   //终端ID
         map.put("code", vip.getCode());                 //腾讯视频登录返回的code码
         map.put("msg", vip.getMsg());                   //登录结果描述
+
+        eveintId = vip.getEventId();
 
         String res = HttpUtil.doPost(Const.URL + "tencent/tencentVideoController/tencentNoticeCallBackByAgent.do", map);
 
@@ -59,6 +62,9 @@ public class VIPCallBack_Servlet extends AsyncTask<VIPCallBack_Servlet.TencentVi
     @Override
     protected void onPostExecute(BaseEntity entity) {
         super.onPostExecute(entity);
+        if (eveintId.equals("4")) {
+            System.exit(0);
+        }
         if (entity.getErrorcode() == 1000) {
 
         }
