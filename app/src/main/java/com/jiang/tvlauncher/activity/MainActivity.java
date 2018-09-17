@@ -1,7 +1,10 @@
 package com.jiang.tvlauncher.activity;
 
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
@@ -23,7 +26,9 @@ import java.util.HashMap;
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
 
-    TextView textView,ID;
+
+    ConstraintLayout constraintLayout;
+    TextView textView, ID;
 
 
     @Override
@@ -31,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        constraintLayout = findViewById(R.id.mian_view);
         textView = findViewById(R.id.home_message);
         ID = findViewById(R.id.home_id);
 
@@ -39,9 +45,57 @@ public class MainActivity extends AppCompatActivity {
         new Update_Servlet(this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
-    public void CallBack_Error(String err) {
-//      err+= "\n设备ID：" + ToolUtils.getMyUUID_mini() ;
-        textView.setText( err);
+    public void CallBack_Error(VIP_Entity entity) {
+
+
+//        constraintLayout.setBackgroundResource(R.drawable.bg1);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("抱歉");
+        builder.setMessage(entity.getErrormsg());
+
+        if (Tools.isAppInstalled(Const.Viedo)) {
+            builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+
+
+                    //启动应用
+                    Tools.StartApp(MainActivity.this, Const.Viedo);
+
+                    //关闭APP
+                    System.exit(0);
+
+                }
+            });
+        } else if (entity.getResult() != null && entity.getResult().getDownloadUrlBak() != null) {
+            builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+
+                    //下载安装应用
+
+                    String dowurl = entity.getResult().getDownloadUrlBak();
+                    new DownUtil(MainActivity.this).downLoad(dowurl, dowurl.substring(dowurl.lastIndexOf("/") + 1), true);
+
+
+                }
+            });
+        }
+
+
+        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        //退出应用
+                        System.exit(0);
+                    }
+                }
+        );
+
+        builder.show();
+
+
     }
 
     public void CallBack_Update() {
@@ -55,6 +109,7 @@ public class MainActivity extends AppCompatActivity {
      * @param bean
      */
     public void CallBack_Vip(VIP_Entity.ResultBean bean) {
+
 
         HashMap<String, Object> params = new HashMap<>();
 
@@ -78,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             //安装应用
             String dowurl = bean.getDownloadUrl();
-            new DownUtil(this).downLoad(dowurl, dowurl.substring(dowurl.indexOf("tv_video")), true);
+            new DownUtil(this).downLoad(dowurl, dowurl.substring(dowurl.lastIndexOf("/") + 1), true);
 
         }
     }

@@ -19,6 +19,6 @@ public class ExampleUnitTest {
     public void main() {
         String s = "http://owod107fe.bkt.clouddn.com/tv_video_3.0.0.1050_android_15000.apk";
 
-        System.out.println(s.substring(s.indexOf("tv_video")));
+        System.out.println(s.substring(s.lastIndexOf("/")+1));
     }
 }

@@ -77,7 +77,7 @@ public class GetVIP_Servlet extends AsyncTask<String, Integer, VIP_Entity> {
                 break;
             default:
                 if (activity instanceof MainActivity) {
-                    ((MainActivity) activity).CallBack_Error(entity.getErrormsg());
+                    ((MainActivity) activity).CallBack_Error(entity);
                 }
                 break;
 
