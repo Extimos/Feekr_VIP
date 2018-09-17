@@ -30,10 +30,10 @@ public class AppInstallReceiver extends BroadcastReceiver {
             String packageName = intent.getData().getSchemeSpecificPart();
 
             LogUtil.e(TAG, "安装成功");
-            Intent launchIntent = context.getPackageManager().getLaunchIntentForPackage(packageName);
-            if (launchIntent != null) {
-                context.startActivity(launchIntent);
-            }
+//            Intent launchIntent = context.getPackageManager().getLaunchIntentForPackage(packageName);
+//            if (launchIntent != null) {
+//                context.startActivity(launchIntent);
+//            }
         }
         //卸载
         if (intent.getAction().equals(Intent.ACTION_PACKAGE_REMOVED)) {
