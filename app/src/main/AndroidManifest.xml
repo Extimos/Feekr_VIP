@@ -29,6 +29,16 @@
             </intent-filter>
         </activity>
 
+        <service
+            android:name="com.ktcp.video.thirdagent.ThirdAuthService"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.ktcp.video.thirdparty.ThirdAuthService" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </service>
+
         <receiver android:name=".receiver.ThirdPartyReceiver">
             <intent-filter>
                 <action android:name="action_agent_server_channel" />
