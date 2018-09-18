@@ -1,6 +1,5 @@
 package com.jiang.tvlauncher.activity;
 
-import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
@@ -21,11 +20,13 @@ import com.jiang.tvlauncher.utils.ToolUtils;
 import com.jiang.tvlauncher.utils.Tools;
 import com.ktcp.video.thirdagent.JsonUtils;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
-
 
     ConstraintLayout constraintLayout;
     TextView textView, ID;
@@ -34,15 +35,29 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
         setContentView(R.layout.activity_main);
 
         constraintLayout = findViewById(R.id.mian_view);
         textView = findViewById(R.id.home_message);
         ID = findViewById(R.id.home_id);
 
-        ID.setText(ToolUtils.getMyUUID_mini());
+        ID.setText("ID:" + ToolUtils.getMyUUID_mini() + "\nMAC:" + ToolUtils.getMacAddress());
+
         //检测更新
         new Update_Servlet(this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroy();
+    }
+
+    @Subscribe
+    public void onMessage(String ss) {
+        finish();
     }
 
     public void CallBack_Error(VIP_Entity entity) {
@@ -55,41 +70,32 @@ public class MainActivity extends AppCompatActivity {
         builder.setMessage(entity.getErrormsg());
 
         if (Tools.isAppInstalled(Const.Viedo)) {
-            builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
+            builder.setPositiveButton("确定", (dialogInterface, i) -> {
 
 
-                    //启动应用
-                    Tools.StartApp(MainActivity.this, Const.Viedo);
+                //启动应用
+                Tools.StartApp(MainActivity.this, Const.Viedo);
 
-                    //关闭APP
-                    System.exit(0);
+                //关闭APP
+                System.exit(0);
 
-                }
             });
         } else if (entity.getResult() != null && entity.getResult().getDownloadUrlBak() != null) {
-            builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
+            builder.setPositiveButton("确定", (dialogInterface, i) -> {
 
-                    //下载安装应用
+                //下载安装应用
 
-                    String dowurl = entity.getResult().getDownloadUrlBak();
-                    new DownUtil(MainActivity.this).downLoad(dowurl, dowurl.substring(dowurl.lastIndexOf("/") + 1), true);
+                String dowurl = entity.getResult().getDownloadUrlBak();
+                new DownUtil(MainActivity.this).downLoad(dowurl, dowurl.substring(dowurl.lastIndexOf("/") + 1), true);
 
 
-                }
             });
         }
 
 
-        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        //退出应用
-                        System.exit(0);
-                    }
+        builder.setNegativeButton("取消", (dialogInterface, i) -> {
+                    //退出应用
+                    System.exit(0);
                 }
         );
 

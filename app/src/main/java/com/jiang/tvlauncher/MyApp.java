@@ -2,7 +2,12 @@ package com.jiang.tvlauncher;
 
 import android.app.Activity;
 import android.app.Application;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Context;
+import android.support.v4.app.NotificationCompat;
+import android.widget.Toast;
 
 import com.tencent.bugly.crashreport.CrashReport;
 
@@ -26,12 +31,24 @@ public class MyApp extends Application {
         return null;
     }
 
+    private NotificationManager manager;
+
     @Override
     public void onCreate() {
         super.onCreate();
         context = this;
 
         CrashReport.initCrashReport(getApplicationContext(), "78ed5dbc8b", false);
+
+        manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+        Notification notification = new NotificationCompat.Builder(context)
+                .setSmallIcon(R.drawable.logo)
+                .setTicker("feekr正在运行中").setContentInfo("feekr正在运行中")
+                .setContentTitle("feekr正在运行中").setContentText("feekr正在运行中")
+                .setAutoCancel(true).setDefaults(Notification.DEFAULT_ALL)
+                .build();
+        manager.notify(1, notification);
 
     }
 }

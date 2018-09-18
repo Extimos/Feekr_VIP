@@ -10,6 +10,8 @@ import com.jiang.tvlauncher.utils.HttpUtil;
 import com.jiang.tvlauncher.utils.LogUtil;
 import com.jiang.tvlauncher.utils.ToolUtils;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -39,7 +41,14 @@ public class VIPCallBack_Servlet extends AsyncTask<VIPCallBack_Servlet.TencentVi
 
         eveintId = vip.getEventId();
 
-        String res = HttpUtil.doPost(Const.URL + "tencent/tencentVideoController/tencentNoticeCallBackByAgent.do", map);
+        String res = "";
+
+        try {
+
+            res = HttpUtil.doPost(Const.URL + "tencent/tencentVideoController/tencentNoticeCallBackByAgent.do", map);
+        } catch (Exception e) {
+            LogUtil.e(TAG, e.getMessage());
+        }
 
         BaseEntity entity;
         if (TextUtils.isEmpty(res)) {
@@ -62,9 +71,10 @@ public class VIPCallBack_Servlet extends AsyncTask<VIPCallBack_Servlet.TencentVi
     @Override
     protected void onPostExecute(BaseEntity entity) {
         super.onPostExecute(entity);
-        if (eveintId.equals("4")) {
-            System.exit(0);
+        if (eveintId != null && eveintId.equals("4")) {
+            EventBus.getDefault().post("退出");
         }
+
         if (entity.getErrorcode() == 1000) {
 
         }
