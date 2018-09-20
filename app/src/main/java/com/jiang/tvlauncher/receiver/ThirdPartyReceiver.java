@@ -3,14 +3,13 @@ package com.jiang.tvlauncher.receiver;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.os.RemoteException;
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.jiang.tvlauncher.entity.Save_Key;
+import com.jiang.tvlauncher.entity.Const;
 import com.jiang.tvlauncher.servlet.VIPCallBack_Servlet;
 import com.jiang.tvlauncher.utils.LogUtil;
-import com.jiang.tvlauncher.utils.SaveUtils;
 import com.ktcp.video.thirdagent.JsonUtils;
 import com.ktcp.video.thirdagent.ThirdPartyAgent;
 import com.ktcp.video.thirdagent.inter.IThirdPartyAgentListener;
@@ -21,7 +20,11 @@ import org.json.JSONObject;
 import java.util.HashMap;
 
 /**
- * Created by v_shlicheng on 2018/4/26.
+ * @author: v_shlicheng
+ * @date: 2018/4/26.
+ * @Email:
+ * @Phone:
+ * TODO: 云视听动作广播监听
  */
 
 public class ThirdPartyReceiver extends BroadcastReceiver implements IThirdPartyAgentListener {
@@ -63,7 +66,7 @@ public class ThirdPartyReceiver extends BroadcastReceiver implements IThirdParty
                 }
 
                 // 2 账户登录回调 3 退出登录 4 APP退出
-                LogUtil.e(TAG,"状态码："+eveintId);
+                LogUtil.e(TAG, "状态码：" + eveintId);
                 //Toast.makeText(context, "状态码："+eveintId, Toast.LENGTH_SHORT).show();
                 VIPCallBack_Servlet.TencentVip vip = new VIPCallBack_Servlet.TencentVip();
 
@@ -108,13 +111,17 @@ public class ThirdPartyReceiver extends BroadcastReceiver implements IThirdParty
         //fixme 由厂商实现的接口 成功获取到接口vuid,vtoken,accessToken必须通过data回调给视频客户端，需要视频处理的错误定义好提示文案放errTip中
         Toast.makeText(context, "正在为您提供会员服务", Toast.LENGTH_LONG).show();
 
-        try {
-            thirdPartyAuthCallback.authInfo(0, "get vuid error", SaveUtils.getString(Save_Key.PARAMS)); //data需要返回vuid,vtoken,accesssToken
-        } catch (Exception e) {
-            e.printStackTrace();
-            LogUtil.e(TAG,e.getMessage());
-        }
+        if (TextUtils.isEmpty(Const.PARAMS)) {
+            Toast.makeText(context, "无法提供会员服务", Toast.LENGTH_LONG).show();
+        } else {
 
+            try {
+                thirdPartyAuthCallback.authInfo(0, "get vuid error", Const.PARAMS); //data需要返回vuid,vtoken,accesssToken
+            } catch (Exception e) {
+                e.printStackTrace();
+                LogUtil.e(TAG, e.getMessage());
+            }
+        }
 
     }
 
@@ -131,7 +138,7 @@ public class ThirdPartyReceiver extends BroadcastReceiver implements IThirdParty
             thirdPartyAuthCallback.orderResult(status, msg, params.toString());
         } catch (Exception e) {
             e.printStackTrace();
-            LogUtil.e(TAG,e.getMessage());
+            LogUtil.e(TAG, e.getMessage());
         }
     }
 

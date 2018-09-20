@@ -5,7 +5,7 @@ package com.jiang.tvlauncher.entity;
  * @date: 2018/5/15
  * @Email: www.fangmu@qq.com
  * @Phone: 186 6120 1018
- * TODO:
+ * TODO: vip实体类
  */
 public class VIP_Entity extends BaseEntity {
 

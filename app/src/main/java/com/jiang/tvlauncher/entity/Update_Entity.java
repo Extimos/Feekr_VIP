@@ -5,7 +5,7 @@ package com.jiang.tvlauncher.entity;
  * on 2017/7/16.
  * Email: www.fangmu@qq.com
  * Phone：186 6120 1018
- * Purpose:TODO 更新
+ * Purpose:TODO 更新实体类
  * update：
  */
 public class Update_Entity extends BaseEntity {

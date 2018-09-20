@@ -9,13 +9,11 @@ import android.widget.TextView;
 
 import com.jiang.tvlauncher.R;
 import com.jiang.tvlauncher.entity.Const;
-import com.jiang.tvlauncher.entity.Save_Key;
 import com.jiang.tvlauncher.entity.VIP_Entity;
 import com.jiang.tvlauncher.servlet.GetVIP_Servlet;
 import com.jiang.tvlauncher.servlet.Update_Servlet;
 import com.jiang.tvlauncher.utils.DownUtil;
 import com.jiang.tvlauncher.utils.LogUtil;
-import com.jiang.tvlauncher.utils.SaveUtils;
 import com.jiang.tvlauncher.utils.ToolUtils;
 import com.jiang.tvlauncher.utils.Tools;
 import com.ktcp.video.thirdagent.JsonUtils;
@@ -127,7 +125,8 @@ public class MainActivity extends AppCompatActivity {
         params.put("accessToken", bean.getAccessToken());
         params.put("errTip", "");
 
-        SaveUtils.setString(Save_Key.PARAMS, JsonUtils.addJsonValue(params));
+        Const.PARAMS = JsonUtils.addJsonValue(params);
+//        SaveUtils.setString(Save_Key.PARAMS, JsonUtils.addJsonValue(params));
 
         //启动应用
         LogUtil.e(TAG, "启动会员版");

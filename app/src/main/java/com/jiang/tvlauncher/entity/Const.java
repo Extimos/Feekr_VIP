@@ -20,5 +20,6 @@ public class Const {
     public static String Viedo = "com.ktcp.video";//定制版腾讯视频
     public static String TencentViedo;
     public static String 云视听Url;
+    public static String PARAMS;
 
 }

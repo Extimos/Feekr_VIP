@@ -3,14 +3,8 @@ package com.jiang.tvlauncher.receiver;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.text.TextUtils;
-import android.widget.Toast;
 
-import com.jiang.tvlauncher.dialog.Loading;
-import com.jiang.tvlauncher.entity.Const;
-import com.jiang.tvlauncher.servlet.GetVIP_Servlet;
 import com.jiang.tvlauncher.utils.LogUtil;
-import com.jiang.tvlauncher.utils.SaveUtils;
 
 /**
  * @author: jiangadmin
