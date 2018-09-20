@@ -5,8 +5,11 @@ import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.jiang.tvlauncher.MyApp;
 import com.jiang.tvlauncher.R;
 import com.jiang.tvlauncher.entity.Const;
 import com.jiang.tvlauncher.entity.VIP_Entity;
@@ -64,8 +67,25 @@ public class MainActivity extends AppCompatActivity {
 
     @Subscribe
     public void onMessage(String ss) {
+        Toast.makeText(MyApp.context, "自动退出APP", Toast.LENGTH_LONG).show();
+        MyApp.clearCache();
         finish();
     }
+
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+            Toast.makeText(MyApp.context, "手动退出APP", Toast.LENGTH_LONG).show();
+            MyApp.clearCache();
+            finish();
+            return false;
+        }else {
+            return super.onKeyDown(keyCode, event);
+        }
+
+    }
+
 
     public void CallBack_Error(VIP_Entity entity) {
 
@@ -134,8 +154,11 @@ public class MainActivity extends AppCompatActivity {
         params.put("accessToken", bean.getAccessToken());
         params.put("errTip", "");
 
-        Const.PARAMS = JsonUtils.addJsonValue(params);
+//        Const.PARAMS_TENCENT_AUTH = JsonUtils.addJsonValue(params);
 //        SaveUtils.setString(Save_Key.PARAMS, JsonUtils.addJsonValue(params));
+
+        //添加缓存
+        MyApp.addCache(Const.PARAMS_TENCENT_AUTH,JsonUtils.addJsonValue(params));
 
         //启动应用
         LogUtil.e(TAG, "启动会员版");

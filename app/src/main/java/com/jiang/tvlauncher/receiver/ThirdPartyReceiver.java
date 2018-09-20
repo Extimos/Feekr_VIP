@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.jiang.tvlauncher.MyApp;
 import com.jiang.tvlauncher.entity.Const;
 import com.jiang.tvlauncher.servlet.VIPCallBack_Servlet;
 import com.jiang.tvlauncher.utils.LogUtil;
@@ -109,20 +110,21 @@ public class ThirdPartyReceiver extends BroadcastReceiver implements IThirdParty
     @Override
     public void getAccount(String channel, final IThirdPartyAuthCallback thirdPartyAuthCallback) {
         //fixme 由厂商实现的接口 成功获取到接口vuid,vtoken,accessToken必须通过data回调给视频客户端，需要视频处理的错误定义好提示文案放errTip中
-        Toast.makeText(context, "正在为您提供会员服务", Toast.LENGTH_LONG).show();
 
-        if (TextUtils.isEmpty(Const.PARAMS)) {
-            Toast.makeText(context, "无法提供会员服务", Toast.LENGTH_LONG).show();
-        } else {
 
-            try {
-                thirdPartyAuthCallback.authInfo(0, "get vuid error", Const.PARAMS); //data需要返回vuid,vtoken,accesssToken
-            } catch (Exception e) {
-                e.printStackTrace();
-                LogUtil.e(TAG, e.getMessage());
+        try {
+            Object params = MyApp.getCache(Const.PARAMS_TENCENT_AUTH);
+            if(params ==null){
+                Toast.makeText(context, "无法提供会员服务", Toast.LENGTH_LONG).show();
+                return;
             }
+            String paramsStr = params.toString();
+            Toast.makeText(context, "正在为您提供会员服务"+paramsStr, Toast.LENGTH_LONG).show();
+            thirdPartyAuthCallback.authInfo(0, "get vuid error", paramsStr); //data需要返回vuid,vtoken,accesssToken
+        } catch (Exception e) {
+            e.printStackTrace();
+            LogUtil.e(TAG, e.getMessage());
         }
-
     }
 
     @Override

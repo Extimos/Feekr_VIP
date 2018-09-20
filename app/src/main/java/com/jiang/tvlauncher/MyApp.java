@@ -11,6 +11,8 @@ import android.widget.Toast;
 
 import com.tencent.bugly.crashreport.CrashReport;
 
+import java.util.HashMap;
+
 /**
  * @author: jiangadmin
  * @date: 2018/9/5
@@ -31,6 +33,8 @@ public class MyApp extends Application {
         return null;
     }
 
+    private static HashMap<String,Object> appCache = new HashMap<String,Object>();
+
     private NotificationManager manager;
 
     @Override
@@ -50,5 +54,37 @@ public class MyApp extends Application {
                 .build();
         manager.notify(1, notification);
 
+    }
+
+    /**
+     * 添加缓存
+     * @param key
+     * @param value
+     */
+    public static void addCache(String key, Object value){
+        appCache.put(key, value);
+    }
+
+    /**
+     * 获取缓存
+     * @param key
+     * @return
+     */
+    public static Object getCache(String key){
+        return appCache.get(key);
+    }
+
+    /**
+     * 移除缓存
+     * @param key
+     * @return
+     */
+    public static Object removeCache(String key){
+        return appCache.remove(key);
+    }
+
+    public static void clearCache(){
+        appCache.clear();
+        return;
     }
 }
