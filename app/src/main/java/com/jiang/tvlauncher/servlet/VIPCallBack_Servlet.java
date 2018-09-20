@@ -35,7 +35,7 @@ public class VIPCallBack_Servlet extends AsyncTask<VIPCallBack_Servlet.TencentVi
         map.put("vuid", Const.ktcp_vuid);               //腾讯视频VIP账户
         map.put("vtoken", Const.ktcp_vtoken);           //腾讯视频播放凭证
         map.put("eventId", vip.getEventId());           //事件ID（腾讯视频返回值）
-        map.put("terminalId", ToolUtils.getMyUUID_mini());   //终端ID
+        map.put("terminalId", ToolUtils.getMacAddress());   //终端ID
         map.put("code", vip.getCode());                 //腾讯视频登录返回的code码
         map.put("msg", vip.getMsg());                   //登录结果描述
 

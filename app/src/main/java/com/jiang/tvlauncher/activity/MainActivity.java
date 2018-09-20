@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
 
     ConstraintLayout constraintLayout;
-    TextView textView, ID;
+    TextView textView, ID,ver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +46,10 @@ public class MainActivity extends AppCompatActivity {
         constraintLayout = findViewById(R.id.mian_view);
         textView = findViewById(R.id.home_message);
         ID = findViewById(R.id.home_id);
+        ver = findViewById(R.id.home_ver);
 
-        ID.setText("ID:" + ToolUtils.getMyUUID_mini() + "\nMAC:" + ToolUtils.getMacAddress());
+        ID.setText("MAC:" + ToolUtils.getMacAddress());
+        ver.setText("V:"+ToolUtils.getVersionName());
 
         //检测更新
         new Update_Servlet(this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -72,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("抱歉");
-        builder.setMessage(entity.getErrormsg());
+        builder.setMessage(entity.getErrormsg()+"\nMAC:" + ToolUtils.getMacAddress());
 
         if (Tools.isAppInstalled(Const.Viedo)) {
             builder.setPositiveButton("确定", (dialogInterface, i) -> {
