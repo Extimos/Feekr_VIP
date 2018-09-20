@@ -36,8 +36,8 @@ public class GetVIP_Servlet extends AsyncTask<String, Integer, VIP_Entity> {
     protected VIP_Entity doInBackground(String... strings) {
         Map map = new HashMap();
 
-        map.put("terminalId", ToolUtils.getMacAddress()); //终端设备ID
-        map.put("mac", ToolUtils.getMacAddress());       //设备mac地址
+        map.put("terminalId", ToolUtils.getMacAddress());  //终端设备ID
+        map.put("mac", ToolUtils.getMacAddress());        //设备mac地址()
 
         String res = HttpUtil.doPost(Const.URL + "tencent/tencentVideoController/getVuidInfoByAgent.do", map);
 
