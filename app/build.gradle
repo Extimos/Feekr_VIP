@@ -7,7 +7,7 @@ android {
         config {
             keyAlias 'jiang'
             keyPassword 'jiangadmin'
-            storeFile file('/Users/jiangyao/Desktop/Android Project/FeekrForSkyworth/Jiang.jks')
+            storeFile file('D:/Android/Project/Jiang.jks')
             storePassword 'jiangadmin'
         }
     }

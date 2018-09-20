@@ -135,7 +135,6 @@ public class MainActivity extends AppCompatActivity {
         params.put("errTip", "");
 
         Const.PARAMS = JsonUtils.addJsonValue(params);
-
 //        SaveUtils.setString(Save_Key.PARAMS, JsonUtils.addJsonValue(params));
 
         //启动应用
