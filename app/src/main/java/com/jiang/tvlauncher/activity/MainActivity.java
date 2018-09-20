@@ -23,12 +23,19 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.util.HashMap;
 
+/**
+ * @author: jiangadmin
+ * @date: 2017/6/12.
+ * @Email: www.fangmu@qq.com
+ * @Phone: 186 6120 1018
+ * TODO: 主页
+ */
+
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
 
     ConstraintLayout constraintLayout;
     TextView textView, ID;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
