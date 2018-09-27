@@ -2,7 +2,6 @@ package com.jiang.tvlauncher.utils;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Environment;
@@ -45,19 +44,16 @@ public class DownUtil {
         pd.setCanceledOnTouchOutside(false);
         pd.setCancelable(false);
         // 监听返回键--防止下载的时候点击返回
-        pd.setOnKeyListener(new DialogInterface.OnKeyListener() {
-            @Override
-            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
-                if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+        pd.setOnKeyListener((dialog, keyCode, event) -> {
+            if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
 //                    Toast.makeText(activity, "正在下载请稍后", Toast.LENGTH_SHORT).show();
-                    return true;
-                } else {
-                    return false;
-                }
+                return true;
+            } else {
+                return false;
             }
         });
         // Sdcard不可用
-        if (!Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+        if (!Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED) || !Environment.isExternalStorageRemovable()) {
             Toast.makeText(activity, "SD卡不可用~", Toast.LENGTH_SHORT).show();
             Loading.dismiss();
 
