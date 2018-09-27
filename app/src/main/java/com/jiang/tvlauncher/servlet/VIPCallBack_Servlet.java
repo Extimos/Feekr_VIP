@@ -39,6 +39,7 @@ public class VIPCallBack_Servlet extends AsyncTask<VIPCallBack_Servlet.TencentVi
         map.put("code", vip.getCode());                 //腾讯视频登录返回的code码
         map.put("msg", vip.getMsg());                   //登录结果描述
 
+
         eveintId = vip.getEventId();
 
         String res = "";

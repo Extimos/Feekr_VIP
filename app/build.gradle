@@ -7,7 +7,7 @@ android {
         config {
             keyAlias 'jiang'
             keyPassword 'jiangadmin'
-            storeFile file('/Users/jiangyao/Desktop/Android Project/Jiang.jks')
+            storeFile file('D:/AndroidProject/Jiang.jks')
             storePassword 'jiangadmin'
         }
     }
@@ -35,6 +35,7 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    buildToolsVersion = '28.0.2'
 
     applicationVariants.all { variant ->    //批量修改Apk名字
         variant.outputs.all { output ->

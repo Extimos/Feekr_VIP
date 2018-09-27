@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Environment;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.widget.Toast;
 
@@ -53,7 +54,7 @@ public class DownUtil {
             }
         });
         // Sdcard不可用
-        if (!Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED) || !Environment.isExternalStorageRemovable()) {
+        if (TextUtils.isEmpty(Environment.getDataDirectory().getParentFile().toString())) {
             Toast.makeText(activity, "SD卡不可用~", Toast.LENGTH_SHORT).show();
             Loading.dismiss();
 
@@ -121,7 +122,7 @@ public class DownUtil {
 
         File file = null;
         // 如果相等的话表示当前的sdcard挂载在手机上并且是可用的
-        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+        if (!TextUtils.isEmpty(Environment.getDataDirectory().getParentFile().toString())) {
             URL url = new URL(path);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setConnectTimeout(5000);
@@ -134,7 +135,7 @@ public class DownUtil {
             BufferedInputStream bis = null;
             try {
                 is = conn.getInputStream();
-                file = new File(Environment.getExternalStorageDirectory().getPath() + "/feekr/Download/", fileName);
+                file = new File(Environment.getDataDirectory().getParentFile(), fileName);
                 //判断文件夹是否被创建
                 if (!file.getParentFile().exists()) {
                     file.getParentFile().mkdirs();

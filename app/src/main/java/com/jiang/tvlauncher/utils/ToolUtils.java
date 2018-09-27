@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
+import android.net.wifi.aware.WifiAwareManager;
 import android.os.Build;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
@@ -416,7 +417,6 @@ public class ToolUtils {
 
     }
 
-
     /**
      * 获取设备UUID
      *
@@ -543,7 +543,6 @@ public class ToolUtils {
      */
     public static boolean isFeatures() {
 
-
         return Build.FINGERPRINT.startsWith("generic")
                 || Build.FINGERPRINT.toLowerCase().contains("vbox")
                 || Build.FINGERPRINT.toLowerCase().contains("test-keys")
@@ -554,7 +553,6 @@ public class ToolUtils {
                 || (Build.BRAND.startsWith("generic") && Build.DEVICE.startsWith("generic"))
                 || "google_sdk".equals(Build.PRODUCT);
     }
-
 
     public static boolean hasEmulatorBuild(Context context) {
         String BOARD = Build.BOARD; // The name of the underlying board, like "unknown".
@@ -575,7 +573,6 @@ public class ToolUtils {
         }
         return false;
     }
-
 
     /**
      * 获取Ethernet的MAC地址
