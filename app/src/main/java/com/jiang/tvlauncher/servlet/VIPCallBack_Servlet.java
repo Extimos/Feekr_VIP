@@ -45,7 +45,6 @@ public class VIPCallBack_Servlet extends AsyncTask<VIPCallBack_Servlet.TencentVi
         String res = "";
 
         try {
-
             res = HttpUtil.doPost(Const.URL + "tencent/tencentVideoController/tencentNoticeCallBackByAgent.do", map);
         } catch (Exception e) {
             LogUtil.e(TAG, e.getMessage());

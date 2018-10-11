@@ -3,7 +3,6 @@ package com.jiang.tvlauncher.receiver;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -24,8 +23,7 @@ import java.util.HashMap;
  * @author: v_shlicheng
  * @date: 2018/4/26.
  * @Email:
- * @Phone:
- * TODO: 云视听动作广播监听
+ * @Phone: TODO: 云视听动作广播监听
  */
 
 public class ThirdPartyReceiver extends BroadcastReceiver implements IThirdPartyAgentListener {
@@ -114,12 +112,13 @@ public class ThirdPartyReceiver extends BroadcastReceiver implements IThirdParty
 
         try {
             Object params = MyApp.getCache(Const.PARAMS_TENCENT_AUTH);
-            if(params ==null){
+            if (params == null) {
                 Toast.makeText(context, "无法提供会员服务", Toast.LENGTH_LONG).show();
                 return;
             }
             String paramsStr = params.toString();
-            Toast.makeText(context, "正在为您提供会员服务"+paramsStr, Toast.LENGTH_LONG).show();
+//            Toast.makeText(context, "正在为您提供会员服务"+paramsStr, Toast.LENGTH_LONG).show();
+            Toast.makeText(context, "正在为您提供会员服务", Toast.LENGTH_LONG).show();
             thirdPartyAuthCallback.authInfo(0, "get vuid error", paramsStr); //data需要返回vuid,vtoken,accesssToken
         } catch (Exception e) {
             e.printStackTrace();

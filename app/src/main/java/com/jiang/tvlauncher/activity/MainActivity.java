@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Subscribe
     public void onMessage(String ss) {
-        Toast.makeText(MyApp.context, "自动退出APP", Toast.LENGTH_LONG).show();
+//        Toast.makeText(MyApp.context, "自动退出APP", Toast.LENGTH_LONG).show();
         MyApp.clearCache();
         finish();
     }
@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if ((keyCode == KeyEvent.KEYCODE_BACK)) {
-            Toast.makeText(MyApp.context, "手动退出APP", Toast.LENGTH_LONG).show();
+//            Toast.makeText(MyApp.context, "手动退出APP", Toast.LENGTH_LONG).show();
             MyApp.clearCache();
             finish();
             return false;
@@ -88,7 +88,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void CallBack_Error(VIP_Entity entity) {
-
 
 //        constraintLayout.setBackgroundResource(R.drawable.bg1);
 

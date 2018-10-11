@@ -9,8 +9,8 @@ package com.jiang.tvlauncher.entity;
  */
 public class Const {
 
-//    public static String URL = "http://api.feekrs.com/";
-    public static String URL = " http://testapi.feekrs.com/";
+    public static String URL = "http://api.feekrs.com/";
+//    public static String URL = " http://testapi.feekrs.com/";
 
     public static String ktcp_vuid;
     public static String ktcp_vtoken;

@@ -54,7 +54,7 @@ public class DownUtil {
             }
         });
         // Sdcard不可用
-        if (TextUtils.isEmpty(Environment.getDataDirectory().getParentFile().toString())) {
+        if (!Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
             Toast.makeText(activity, "SD卡不可用~", Toast.LENGTH_SHORT).show();
             Loading.dismiss();
 
@@ -122,7 +122,7 @@ public class DownUtil {
 
         File file = null;
         // 如果相等的话表示当前的sdcard挂载在手机上并且是可用的
-        if (!TextUtils.isEmpty(Environment.getDataDirectory().getParentFile().toString())) {
+        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
             URL url = new URL(path);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setConnectTimeout(5000);
@@ -135,7 +135,8 @@ public class DownUtil {
             BufferedInputStream bis = null;
             try {
                 is = conn.getInputStream();
-                file = new File(Environment.getDataDirectory().getParentFile(), fileName);
+                 file = new File(Environment.getExternalStorageDirectory().getPath() + "/feekr/Download/", fileName);
+//                file = new File(Environment.getDataDirectory().getParentFile(), fileName);
                 //判断文件夹是否被创建
                 if (!file.getParentFile().exists()) {
                     file.getParentFile().mkdirs();

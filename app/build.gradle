@@ -7,7 +7,7 @@ android {
         config {
             keyAlias 'jiang'
             keyPassword 'jiangadmin'
-            storeFile file('D:/AndroidProject/Jiang.jks')
+            storeFile file('/Users/jiangyao/Desktop/Android Project/Jiang.jks')
             storePassword 'jiangadmin'
         }
     }
@@ -16,10 +16,10 @@ android {
 
     defaultConfig {
         applicationId "com.jiang.tvlauncher"
-        minSdkVersion 17
+        minSdkVersion 19
         targetSdkVersion 22
-        versionCode 2
-        versionName "1.0.2"
+        versionCode 4
+        versionName "1.0.4"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
